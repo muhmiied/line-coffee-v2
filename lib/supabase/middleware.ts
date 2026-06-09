@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import type { User } from '@supabase/supabase-js'
 
 function getMiddlewareSupabaseEnv() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -16,7 +17,14 @@ function getMiddlewareSupabaseEnv() {
   return { supabaseUrl, supabaseAnonKey }
 }
 
-export async function updateSession(request: NextRequest) {
+export type MiddlewareSessionResult = {
+  response: NextResponse
+  user: User | null
+}
+
+export async function updateSession(
+  request: NextRequest
+): Promise<MiddlewareSessionResult> {
   const { supabaseUrl, supabaseAnonKey } = getMiddlewareSupabaseEnv()
   let response = NextResponse.next({ request })
 
@@ -43,7 +51,9 @@ export async function updateSession(request: NextRequest) {
     },
   })
 
-  await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  return response
+  return { response, user }
 }
