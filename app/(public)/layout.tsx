@@ -1,4 +1,17 @@
+import { Playfair_Display, Cairo } from 'next/font/google'
 import PublicHeader from '@/components/public/public-header'
+
+const playfair = Playfair_Display({
+  variable: '--font-playfair',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const cairo = Cairo({
+  variable: '--font-cairo',
+  subsets: ['arabic', 'latin'],
+  display: 'swap',
+})
 
 export default function PublicLayout({
   children,
@@ -6,9 +19,9 @@ export default function PublicLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <div className={`${playfair.variable} ${cairo.variable}`}>
       <PublicHeader />
       {children}
-    </>
+    </div>
   )
 }

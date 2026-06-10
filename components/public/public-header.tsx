@@ -1,31 +1,52 @@
 import Link from 'next/link'
 
+const NAV_LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/products', label: 'Products' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+]
+
 export default function PublicHeader() {
   return (
-    <header className="border-b border-zinc-200 dark:border-amber-100/10 bg-white dark:bg-[#0d0a08]">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
+    <header className="sticky top-0 z-50 lc-glass border-b border-[#FFDCC2]/10 shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-3">
+        {/* Wordmark */}
         <Link
           href="/"
-          className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-900 dark:text-amber-200/80"
+          className="shrink-0 font-heading text-sm font-semibold uppercase tracking-[0.18em] text-[#FFDCC2] transition-opacity duration-200 hover:opacity-80"
         >
           Line Coffee
         </Link>
-        <nav className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
-          >
-            Home{' '}
-            <span className="text-zinc-400 dark:text-zinc-600">/ الرئيسية</span>
-          </Link>
-          <Link
-            href="/products"
-            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
-          >
-            Products{' '}
-            <span className="text-zinc-400 dark:text-zinc-600">/ المنتجات</span>
-          </Link>
+
+        {/* Desktop navigation */}
+        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="group relative text-sm font-medium text-white/60 transition-colors duration-200 hover:text-[#FFDCC2]"
+            >
+              {label}
+              {/* Beige underline accent on hover */}
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-0.5 left-0 right-0 h-px origin-left scale-x-0 bg-[#FFDCC2]/55 transition-transform duration-200 group-hover:scale-x-100"
+              />
+            </Link>
+          ))}
         </nav>
+
+        {/* Mobile hamburger — visual placeholder, interactive menu is a future phase */}
+        <div
+          aria-hidden="true"
+          className="md:hidden flex flex-col justify-center gap-[5px] p-2"
+        >
+          <span className="block h-px w-5 bg-white/55" />
+          <span className="block h-px w-5 bg-white/55" />
+          <span className="block h-px w-[14px] bg-white/55" />
+        </div>
       </div>
     </header>
   )
