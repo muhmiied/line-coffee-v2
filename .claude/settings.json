@@ -1,6 +1,6 @@
 {
   "permissions": {
-    "always allow": [
+    "allow": [
       "Bash(node -e \"require.resolve\\('server-only'\\)\")",
       "Bash(npx next *)"
     ]
