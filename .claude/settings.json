@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(node -e \"require.resolve\\('server-only'\\)\")",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(npm run *)"
     ]
   }
 }
