@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { getPublicCategories } from '@/lib/db/categories'
@@ -57,6 +58,17 @@ export default async function ProductsPage() {
                   href={`/products/${product.slug}`}
                   className="block h-full rounded-xl border border-zinc-200 dark:border-zinc-800 p-5 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
                 >
+                  {product.image_url && (
+                    <div className="relative w-full aspect-square mb-4 rounded-lg overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                      <Image
+                        src={product.image_url}
+                        alt={product.image_alt_en ?? product.name_en}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                  )}
                   <p className="text-base font-medium text-zinc-900 dark:text-zinc-100">
                     {product.name_en}
                   </p>

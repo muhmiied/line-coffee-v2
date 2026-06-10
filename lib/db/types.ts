@@ -38,6 +38,11 @@ export type PublicProduct = {
   sort_order: number
   website_visibility: WebsiteVisibility
   system_status: SystemStatus
+  image_url: string | null
+  image_alt_en: string | null
+  image_alt_ar: string | null
+  image_width: number | null
+  image_height: number | null
 }
 
 export type PublicProductVariant = {

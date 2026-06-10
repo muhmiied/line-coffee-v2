@@ -22,7 +22,16 @@ const PUBLIC_PRODUCT_SELECT = `
   product_type,
   sort_order,
   website_visibility,
-  system_status
+  system_status,
+  main_image:main_image_id(
+    public_url,
+    optimized_url,
+    thumbnail_url,
+    alt_text_en,
+    alt_text_ar,
+    width,
+    height
+  )
 `
 
 const PUBLIC_VARIANT_SELECT = `
@@ -38,11 +47,31 @@ const PUBLIC_VARIANT_SELECT = `
   system_status
 `
 
-type PublicProductRow = Omit<PublicProduct, 'description_en' | 'description_ar'> & {
+type MediaAssetRow = {
+  public_url: string | null
+  optimized_url: string | null
+  thumbnail_url: string | null
+  alt_text_en: string | null
+  alt_text_ar: string | null
+  width: number | null
+  height: number | null
+}
+
+type PublicProductRow = Omit<
+  PublicProduct,
+  | 'description_en'
+  | 'description_ar'
+  | 'image_url'
+  | 'image_alt_en'
+  | 'image_alt_ar'
+  | 'image_width'
+  | 'image_height'
+> & {
   short_description_en: string | null
   short_description_ar: string | null
   full_description_en: string | null
   full_description_ar: string | null
+  main_image: MediaAssetRow | null
 }
 
 function logProductError(functionName: string, message: string) {
@@ -62,6 +91,15 @@ function mapProduct(row: PublicProductRow): PublicProduct {
     sort_order: row.sort_order,
     website_visibility: row.website_visibility,
     system_status: row.system_status,
+    image_url:
+      row.main_image?.optimized_url ??
+      row.main_image?.public_url ??
+      row.main_image?.thumbnail_url ??
+      null,
+    image_alt_en: row.main_image?.alt_text_en ?? null,
+    image_alt_ar: row.main_image?.alt_text_ar ?? null,
+    image_width: row.main_image?.width ?? null,
+    image_height: row.main_image?.height ?? null,
   }
 }
 

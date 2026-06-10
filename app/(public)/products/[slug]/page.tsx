@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -26,6 +27,19 @@ export default async function ProductDetailPage({
           ← All Products
         </Link>
       </div>
+
+      {product.image_url && (
+        <div className="relative w-full aspect-square mb-8 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+          <Image
+            src={product.image_url}
+            alt={product.image_alt_en ?? product.name_en}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 768px"
+            priority
+          />
+        </div>
+      )}
 
       <div className="mb-8">
         <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
