@@ -25,12 +25,28 @@ export type AdminUser = {
   role: AdminRole
 }
 
-type AdminUserRow = Omit<AdminUser, 'role'> & {
-  admin_roles: AdminRole | AdminRole[] | null
+type AdminUserRow = Omit<AdminUser, 'role'>
+
+type SupabaseQueryError = {
+  code?: string
+  message?: string
+  details?: string | null
+  hint?: string | null
 }
 
-function normalizeRole(role: AdminUserRow['admin_roles']) {
-  return Array.isArray(role) ? role[0] ?? null : role
+function buildSanitizedLookupError(
+  fallbackMessage: string,
+  error: SupabaseQueryError
+) {
+  const parts = [
+    fallbackMessage,
+    error.code ? `code=${error.code}` : null,
+    error.message ? `message=${error.message}` : null,
+    error.details ? `details=${error.details}` : null,
+    error.hint ? `hint=${error.hint}` : null,
+  ].filter(Boolean)
+
+  return new Error(parts.join(' | '))
 }
 
 export async function getAdminUser(
@@ -44,32 +60,13 @@ export async function getAdminUser(
   const { data, error } = await supabase
     .from('admin_users')
     .select(
-      `
-        id,
-        auth_user_id,
-        full_name,
-        email,
-        phone,
-        role_id,
-        status,
-        avatar_url,
-        last_login_at,
-        created_at,
-        updated_at,
-        admin_roles (
-          id,
-          name,
-          code,
-          is_system_role,
-          is_protected
-        )
-      `
+      'id, auth_user_id, full_name, email, phone, role_id, status, avatar_url, last_login_at, created_at, updated_at'
     )
     .eq('auth_user_id', authUserId)
     .maybeSingle()
 
   if (error) {
-    throw new Error('Unable to load admin user.')
+    throw buildSanitizedLookupError('Unable to load admin user.', error)
   }
 
   if (!data) {
@@ -77,11 +74,26 @@ export async function getAdminUser(
   }
 
   const row = data as AdminUserRow
-  const role = normalizeRole(row.admin_roles)
 
-  if (row.status !== 'active' || !role) {
+  if (row.status !== 'active') {
     return null
   }
+
+  const { data: roleData, error: roleError } = await supabase
+    .from('admin_roles')
+    .select('id, name, code, is_system_role, is_protected')
+    .eq('id', row.role_id)
+    .maybeSingle()
+
+  if (roleError) {
+    throw buildSanitizedLookupError('Unable to load admin role.', roleError)
+  }
+
+  if (!roleData) {
+    return null
+  }
+
+  const role = roleData as AdminRole
 
   return {
     id: row.id,
