@@ -1,6 +1,5 @@
 import LcButton from '@/components/ui/lc-button'
 import LcProductCard from '@/components/ui/lc-product-card'
-import LcSectionHeading from '@/components/ui/lc-section-heading'
 import type { ProductWithVariants } from '@/lib/db/types'
 
 type Props = {
@@ -8,41 +7,71 @@ type Props = {
 }
 
 export default function HomeFeaturedProducts({ products }: Props) {
-  if (products.length === 0) return null
+  if (products.length === 0) {
+    return (
+      <section className="relative overflow-hidden bg-[#0B0806] px-6 py-20 sm:px-8">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl">
+          {/* Header */}
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <div>
+              <p className="mb-2 text-[0.65rem] font-semibold tracking-[0.22em] text-[#B6885E]/75 uppercase">
+                CUSTOMER FAVORITES
+              </p>
+              <h2 className="font-heading text-3xl font-semibold text-[#F5E6D8] md:text-4xl">
+                Best Sellers
+              </h2>
+              <p className="mt-2 text-sm text-[#D6B79A]/64">
+                Customer favorites from Line Coffee.
+              </p>
+            </div>
+            <LcButton href="/products" variant="outline" size="sm" className="hidden shrink-0 sm:inline-flex">
+              View All →
+            </LcButton>
+          </div>
+
+          <div className="mt-10 flex items-center justify-center py-16 text-[#D6B79A]/40">
+            <p className="text-sm">Products coming soon</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
-    <section className="relative overflow-hidden px-6 pb-24 pt-6">
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute left-1/2 top-24 h-[600px] w-[820px] -translate-x-1/2 rounded-full bg-[#522500]/18 blur-[150px]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-28 bottom-0 h-[440px] w-[440px] rounded-full bg-[#B6885E]/12 blur-[120px]"
-        aria-hidden="true"
-      />
+    <section className="relative overflow-hidden bg-[#0B0806] px-6 py-20 sm:px-8">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider" aria-hidden="true" />
 
-      <div className="relative mx-auto max-w-6xl">
-        <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <LcSectionHeading
-            heading="Featured Products"
-            subheading="Selected blends from the current Line Coffee catalog, ready to explore."
-          />
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute left-1/2 top-20 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[#522500]/14 blur-[160px]" aria-hidden="true" />
+
+      <div className="relative mx-auto max-w-7xl">
+        {/* Section header */}
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="mb-2 text-[0.65rem] font-semibold tracking-[0.22em] text-[#B6885E]/75 uppercase">
+              CUSTOMER FAVORITES
+            </p>
+            <h2 className="font-heading text-3xl font-semibold text-[#F5E6D8] md:text-4xl">
+              Best Sellers
+            </h2>
+            <p className="mt-2 text-sm text-[#D6B79A]/64">
+              Customer favorites from Line Coffee.
+            </p>
+          </div>
           <LcButton
             href="/products"
             variant="outline"
             size="sm"
             className="hidden shrink-0 sm:inline-flex"
           >
-            View All
+            View All →
           </LcButton>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-          {products.map((product) => {
+        {/* Product grid */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-5">
+          {products.slice(0, 4).map((product) => {
             const defaultVariant =
               product.variants.find((v) => v.is_default) ?? product.variants[0]
 
@@ -64,6 +93,7 @@ export default function HomeFeaturedProducts({ products }: Props) {
           })}
         </div>
 
+        {/* Mobile view all */}
         <div className="mt-8 flex justify-center sm:hidden">
           <LcButton href="/products" variant="outline" size="sm">
             View All Products
