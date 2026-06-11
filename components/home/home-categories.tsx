@@ -1,47 +1,59 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { CATEGORIES } from '@/lib/data'
+"use client"
 
-export default function HomeCategories() {
+import Link from "next/link"
+import Image from "next/image"
+import { motion } from "framer-motion"
+import { categories } from "@/lib/data"
+
+export function HomeCategories() {
   return (
-    <section className="relative overflow-hidden bg-[#0B0806] px-6 py-20 sm:px-8">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider" aria-hidden="true" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-[#522500]/16 blur-[140px]" aria-hidden="true" />
+    <section className="cinematic-section relative overflow-hidden py-24 md:py-28">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-[#B6885E]/10 blur-[140px]" />
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="mb-10 text-center">
-          <p className="lc-premium-kicker mb-3 text-[0.65rem] font-semibold">BROWSE BY CATEGORY</p>
-          <h2 className="font-heading text-3xl font-bold text-[#F5E6D8] md:text-4xl">
-            Shop by <span className="text-[#D6A373]">Category</span>
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="mb-12 text-center">
+          <span className="premium-section-kicker">تصفّح حسب الفئة</span>
+          <h2 className="mt-4 font-serif text-4xl font-bold text-[#F5E6D8] md:text-5xl">
+            تشكيلة <span className="text-gradient">لاين</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
-          {CATEGORIES.map((category) => (
-            <Link
-              key={category.id}
-              href={`/products/category/${category.slug}`}
-              className="group relative flex min-h-[12rem] flex-col justify-end overflow-hidden rounded-2xl border border-[#B6885E]/18 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-[#D6A373]/45 hover:shadow-[0_24px_64px_rgba(82,37,0,0.4),0_0_28px_rgba(182,136,94,0.18)]"
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {categories.map((category, i) => (
+            <motion.div
+              key={category.slug}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1],
+                delay: (i % 4) * 0.08,
+              }}
             >
-              <Image
-                src={category.image || '/placeholder.svg'}
-                alt={category.name}
-                fill
-                className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-[#0B0806]/10 via-[#0B0806]/45 to-[#0B0806]/92" aria-hidden="true" />
-              <div className="absolute inset-x-0 top-0 h-px lc-gold-divider" aria-hidden="true" />
-
-              <div className="relative z-10 p-4">
-                <div className="mb-2 h-px w-5 rounded-full bg-[#D6A373]/70 transition-all duration-300 group-hover:w-9 group-hover:bg-[#FFDCC2]/90" />
-                <h3 className="font-heading text-base font-semibold leading-snug text-[#F5E6D8] transition-colors duration-200 group-hover:text-[#FFDCC2]">
-                  {category.name}
-                </h3>
-                <p className="mt-0.5 line-clamp-1 text-[11px] leading-snug text-[#D6B79A]/64">{category.description}</p>
-                <p className="mt-2 text-[11px] font-semibold text-[#D6A373]/80 transition-colors duration-200 group-hover:text-[#FFDCC2]">Explore →</p>
-              </div>
-            </Link>
+              <Link
+                href={`/shop?category=${category.slug}`}
+                className="group relative flex min-h-[13rem] flex-col justify-end overflow-hidden rounded-2xl border border-[#B6885E]/16 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-[#D6A373]/45 hover:shadow-[0_24px_64px_-20px_rgba(182,136,94,0.45)]"
+              >
+                <Image
+                  src={category.image || "/placeholder.svg"}
+                  alt={category.name}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0806] via-[#0B0806]/45 to-transparent" />
+                <div className="relative z-10 p-5">
+                  <div className="mb-2 h-px w-6 rounded-full bg-[#D6A373]/70 transition-all duration-300 group-hover:w-10" />
+                  <h3 className="font-serif text-lg font-bold text-[#F5E6D8] transition-colors group-hover:text-[#D6A373]">
+                    {category.name}
+                  </h3>
+                  <p className="mt-1 text-xs leading-snug text-[#B79B85]">
+                    {category.description}
+                  </p>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
