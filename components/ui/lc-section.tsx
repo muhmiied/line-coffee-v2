@@ -3,9 +3,9 @@ import { type ReactNode } from 'react'
 export type LcSectionVariant = 'dark' | 'warm' | 'transparent'
 
 const variantClasses: Record<LcSectionVariant, string> = {
-  dark: 'bg-[#09050300]',
-  warm: 'bg-gradient-to-br from-[#1a0d04] to-[#090503]',
-  transparent: 'bg-transparent',
+  dark: 'lc-section-dark',
+  warm: 'lc-section-warm',
+  transparent: 'lc-section-transparent',
 }
 
 type LcSectionProps = {
@@ -24,7 +24,7 @@ export default function LcSection({
   return (
     <section
       id={id}
-      className={`py-16 md:py-24 ${variantClasses[variant]} ${className}`}
+      className={`lc-section-flow py-16 md:py-24 ${variantClasses[variant]} ${className}`}
     >
       {children}
     </section>

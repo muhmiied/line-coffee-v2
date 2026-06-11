@@ -12,7 +12,7 @@ export default function LcGlassPanel({
   className = '',
   warm = false,
 }: LcGlassPanelProps) {
-  const base = warm ? 'lc-glass-warm' : 'lc-glass-panel'
+  const base = warm ? 'lc-glass-warm' : 'lc-luxury-panel'
   return (
     <div className={`${base} rounded-2xl p-6 ${className}`}>
       {children}

@@ -10,14 +10,18 @@ export default function HomeCategories({ categories }: Props) {
   if (categories.length === 0) return null
 
   return (
-    <section className="relative -mt-10 overflow-hidden px-6 pb-24 pt-20">
-      <div className="lc-coffee-texture pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
+    <section className="relative -mt-12 overflow-hidden px-6 pb-24 pt-20">
+      <div className="lc-coffee-texture pointer-events-none absolute inset-0 opacity-75" aria-hidden="true" />
       <div
-        className="pointer-events-none absolute -left-32 top-0 h-[520px] w-[520px] rounded-full bg-[#522500]/18 blur-[130px]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-[#b6885e]/8 blur-[120px]"
+        className="pointer-events-none absolute -left-32 top-0 h-[560px] w-[560px] rounded-full bg-[#522500]/22 blur-[130px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 right-0 h-[460px] w-[460px] rounded-full bg-[#B6885E]/10 blur-[120px]"
         aria-hidden="true"
       />
 
@@ -26,10 +30,10 @@ export default function HomeCategories({ categories }: Props) {
           heading="Our Coffee Range"
           subheading="Explore the collection, from rich Turkish blends to specialty roasts."
           align="center"
-          className="mb-10"
+          className="mb-11"
         />
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-5">
           {categories.map((category) => (
             <LcCategoryTile
               key={category.id}

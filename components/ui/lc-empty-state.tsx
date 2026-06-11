@@ -14,16 +14,17 @@ export default function LcEmptyState({
   actionHref,
 }: LcEmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center py-24 px-6 text-center">
-      {/* Coffee icon */}
-      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full lc-glass-panel text-3xl">
-        ☕
+    <div className="lc-luxury-panel flex flex-col items-center justify-center rounded-2xl px-6 py-16 text-center">
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[#B6885E]/24 bg-[#522500]/24 text-sm font-semibold text-[#FFDCC2] shadow-[inset_0_1px_0_rgba(245,230,216,0.10)]">
+        LC
       </div>
 
-      <h3 className="font-heading text-xl font-semibold text-white">{title}</h3>
+      <h3 className="font-heading text-xl font-semibold text-[#F5E6D8]">
+        {title}
+      </h3>
 
       {description && (
-        <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/50">
+        <p className="mt-2 max-w-sm text-sm leading-relaxed text-[#D6B79A]/68">
           {description}
         </p>
       )}

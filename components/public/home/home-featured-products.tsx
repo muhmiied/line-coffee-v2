@@ -11,17 +11,17 @@ export default function HomeFeaturedProducts({ products }: Props) {
   if (products.length === 0) return null
 
   return (
-    <section className="relative overflow-hidden px-6 pb-24 pt-4">
+    <section className="relative overflow-hidden px-6 pb-24 pt-6">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFDCC2]/14 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute left-1/2 top-24 h-[560px] w-[760px] -translate-x-1/2 rounded-full bg-[#522500]/14 blur-[150px]"
+        className="pointer-events-none absolute left-1/2 top-24 h-[600px] w-[820px] -translate-x-1/2 rounded-full bg-[#522500]/18 blur-[150px]"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute -right-28 bottom-0 h-[420px] w-[420px] rounded-full bg-[#b6885e]/10 blur-[120px]"
+        className="pointer-events-none absolute -right-28 bottom-0 h-[440px] w-[440px] rounded-full bg-[#B6885E]/12 blur-[120px]"
         aria-hidden="true"
       />
 
@@ -41,7 +41,7 @@ export default function HomeFeaturedProducts({ products }: Props) {
           </LcButton>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {products.map((product) => {
             const defaultVariant =
               product.variants.find((v) => v.is_default) ?? product.variants[0]

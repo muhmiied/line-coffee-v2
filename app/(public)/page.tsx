@@ -18,9 +18,9 @@ export default async function HomePage() {
   const heroProduct = products.find((product) => product.image_url)
 
   return (
-    <main className="relative isolate flex flex-col overflow-hidden bg-[#0b0603]">
+    <main className="lc-coffee-canvas relative isolate flex flex-col overflow-hidden bg-[#0B0806]">
       <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_-8%,rgba(255,220,194,0.09),transparent_34rem),radial-gradient(circle_at_8%_28%,rgba(82,37,0,0.22),transparent_30rem),linear-gradient(180deg,#100804_0%,#080300_48%,#120804_100%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_-8%,rgba(214,163,115,0.13),transparent_36rem),radial-gradient(circle_at_8%_28%,rgba(82,37,0,0.24),transparent_32rem),radial-gradient(circle_at_92%_56%,rgba(182,136,94,0.10),transparent_34rem)]"
         aria-hidden="true"
       />
       <HomeHero

@@ -28,11 +28,11 @@ export default function HomeFeatures() {
   return (
     <section className="relative overflow-hidden px-6 py-24">
       <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,3,0,0)_0%,rgba(35,14,4,0.62)_48%,rgba(8,3,0,0)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_44%,rgba(214,163,115,0.10),transparent_30rem),linear-gradient(180deg,rgba(11,8,6,0)_0%,rgba(27,20,15,0.70)_48%,rgba(11,8,6,0)_100%)]"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[640px] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#b6885e]/9 blur-[140px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#B6885E]/10 blur-[140px]"
         aria-hidden="true"
       />
 
@@ -49,20 +49,20 @@ export default function HomeFeatures() {
             <LcGlassPanel
               key={feature.num}
               warm
-              className="group relative flex min-h-[15rem] flex-col gap-5 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_52px_rgba(82,37,0,0.32)]"
+              className="group relative flex min-h-[15rem] flex-col gap-5 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_58px_rgba(82,37,0,0.36),0_0_26px_rgba(182,136,94,0.12)]"
             >
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFDCC2]/22 to-transparent"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider"
                 aria-hidden="true"
               />
-              <span className="font-heading text-3xl font-semibold leading-none text-[#d6a373]/44 transition-colors duration-300 group-hover:text-[#FFDCC2]/62">
+              <span className="font-heading text-3xl font-semibold leading-none text-[#D6A373]/52 transition-colors duration-300 group-hover:text-[#FFDCC2]/70">
                 {feature.num}
               </span>
               <div>
-                <h3 className="font-heading mb-2 text-lg font-semibold text-[#fff4ec]">
+                <h3 className="font-heading mb-2 text-lg font-semibold text-[#F5E6D8]">
                   {feature.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-[#f8dfce]/58">
+                <p className="text-sm leading-relaxed text-[#D6B79A]/68">
                   {feature.body}
                 </p>
               </div>
