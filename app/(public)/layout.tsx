@@ -1,5 +1,6 @@
 import { Playfair_Display, Cairo } from 'next/font/google'
 import PublicHeader from '@/components/public/public-header'
+import PublicFooter from '@/components/public/public-footer'
 
 const playfair = Playfair_Display({
   variable: '--font-playfair',
@@ -22,6 +23,7 @@ export default function PublicLayout({
     <div className={`${playfair.variable} ${cairo.variable}`}>
       <PublicHeader />
       {children}
+      <PublicFooter />
     </div>
   )
 }
