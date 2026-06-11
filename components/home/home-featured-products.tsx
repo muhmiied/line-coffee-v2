@@ -1,42 +1,47 @@
-import LcButton from '@/components/ui/lc-button'
-import LcProductCard from '@/components/ui/lc-product-card'
-import { PRODUCTS } from '@/lib/data'
+"use client"
 
-export default function HomeFeaturedProducts() {
+import { motion } from "framer-motion"
+import { LcButton } from "@/components/ui/lc-button"
+import { LcProductCard } from "@/components/ui/lc-product-card"
+import { products } from "@/lib/data"
+
+export function HomeFeaturedProducts() {
   return (
-    <section className="relative overflow-hidden bg-[#0B0806] px-6 py-20 sm:px-8">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px lc-gold-divider" aria-hidden="true" />
-      <div className="pointer-events-none absolute left-1/2 top-20 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[#522500]/14 blur-[160px]" aria-hidden="true" />
+    <section className="cinematic-section relative overflow-hidden py-24 md:py-28">
+      <div className="pointer-events-none absolute left-1/2 top-20 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[#B6885E]/8 blur-[160px]" />
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="relative mx-auto max-w-7xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+        >
           <div>
-            <p className="lc-premium-kicker mb-2 text-[0.65rem] font-semibold">CUSTOMER FAVORITES</p>
-            <h2 className="font-heading text-3xl font-bold text-[#F5E6D8] md:text-4xl">Best Sellers</h2>
-            <p className="mt-2 text-sm text-[#D6B79A]/64">Customer favorites from Line Coffee.</p>
+            <span className="premium-section-kicker">اختيارات عملائنا</span>
+            <h2 className="mt-4 font-serif text-4xl font-bold text-[#F5E6D8] md:text-5xl">
+              الأكثر مبيعاً
+            </h2>
+            <p className="mt-2 text-sm text-[#B79B85]">
+              أكثر ما يحبّه عملاء لاين كوفي.
+            </p>
           </div>
-          <LcButton href="/products" variant="outline" size="sm" className="hidden shrink-0 sm:inline-flex">View All →</LcButton>
-        </div>
+          <LcButton href="/shop" variant="outline" className="hidden shrink-0 sm:inline-flex">
+            عرض الكل
+          </LcButton>
+        </motion.div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-          {PRODUCTS.map((product) => (
-            <LcProductCard
-              key={product.id}
-              slug={product.slug}
-              name={product.name}
-              description={product.description}
-              image={product.image}
-              imageAlt={product.name}
-              categoryName={product.category}
-              price={product.price}
-              oldPrice={product.oldPrice}
-              badge={product.badge}
-            />
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((product) => (
+            <LcProductCard key={product.slug} product={product} />
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center sm:hidden">
-          <LcButton href="/products" variant="outline" size="md">View All Products</LcButton>
+        <div className="mt-10 flex justify-center sm:hidden">
+          <LcButton href="/shop" variant="outline">
+            عرض كل المنتجات
+          </LcButton>
         </div>
       </div>
     </section>
