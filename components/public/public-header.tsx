@@ -12,12 +12,17 @@ export default function PublicHeader() {
   return (
     <header className="sticky top-0 z-50 lc-glass border-b border-[#FFDCC2]/10 shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-3">
-        {/* Wordmark */}
+        {/* Logo */}
         <Link
           href="/"
-          className="shrink-0 font-heading text-sm font-semibold uppercase tracking-[0.18em] text-[#FFDCC2] transition-opacity duration-200 hover:opacity-80"
+          className="shrink-0 transition-opacity duration-200 hover:opacity-80"
+          aria-label="Line Coffee — Home"
         >
-          Line Coffee
+          <img
+            src="/brand-assets/logo/line-coffee-logo-full-white.svg"
+            alt="Line Coffee"
+            className="h-8 w-auto"
+          />
         </Link>
 
         {/* Desktop navigation */}
