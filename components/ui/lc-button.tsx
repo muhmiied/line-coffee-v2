@@ -6,13 +6,13 @@ export type LcButtonSize = 'sm' | 'md' | 'lg'
 
 const variantClasses: Record<LcButtonVariant, string> = {
   primary:
-    'bg-[#522500] text-[#FFDCC2] border border-[#FFDCC2]/20 shadow-[0_0_18px_rgba(82,37,0,0.45)] hover:bg-[#6b3100] lc-shine',
+    'bg-gradient-to-br from-[#FFDCC2] via-[#d6a373] to-[#b6885e] text-[#140904] border border-[#FFDCC2]/45 shadow-[0_10px_34px_rgba(182,136,94,0.28),inset_0_1px_0_rgba(255,255,255,0.26)] hover:from-[#ffe8d7] hover:via-[#dfae7f] hover:to-[#c49368] hover:shadow-[0_14px_42px_rgba(182,136,94,0.38),inset_0_1px_0_rgba(255,255,255,0.34)] lc-shine',
   secondary:
-    'bg-[#FFDCC2]/10 text-[#FFDCC2] border border-[#FFDCC2]/20 hover:bg-[#FFDCC2]/20',
+    'bg-[#522500]/28 text-[#FFDCC2] border border-[#FFDCC2]/22 shadow-[inset_0_1px_0_rgba(255,220,194,0.08)] hover:bg-[#6b3100]/34 hover:border-[#FFDCC2]/42 hover:shadow-[0_10px_28px_rgba(82,37,0,0.26)]',
   glass:
-    'lc-glass-panel text-[#FFDCC2] hover:border-[#FFDCC2]/25 lc-shine',
+    'bg-[#1a0d04]/62 text-[#FFDCC2] border border-[#FFDCC2]/18 shadow-[0_8px_28px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,220,194,0.10)] backdrop-blur hover:border-[#FFDCC2]/34 hover:bg-[#2a1308]/58 lc-shine',
   outline:
-    'bg-transparent text-[#FFDCC2] border border-[#FFDCC2]/40 hover:border-[#FFDCC2]/75 hover:bg-[#FFDCC2]/6',
+    'bg-transparent text-[#FFDCC2] border border-[#FFDCC2]/34 hover:border-[#FFDCC2]/70 hover:bg-[#FFDCC2]/8 hover:shadow-[0_0_18px_rgba(255,220,194,0.14)]',
 }
 
 const sizeClasses: Record<LcButtonSize, string> = {
@@ -38,7 +38,7 @@ export default function LcButton({
   ...props
 }: LcButtonProps) {
   const base =
-    'inline-flex items-center justify-center rounded-xl font-medium transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFDCC2]/40 disabled:opacity-50 disabled:pointer-events-none'
+    'inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFDCC2]/45 disabled:opacity-50 disabled:pointer-events-none'
   const classes = `${base} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`
 
   if (href) {
