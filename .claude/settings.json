@@ -7,7 +7,22 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "WebFetch(domain:line-coffee-zqoa.vercel.app)"
+      "WebFetch(domain:line-coffee-zqoa.vercel.app)",
+      "Bash(gh repo *)",
+      "WebFetch(domain:github.com)",
+      "Bash(git clone *)",
+      "Bash(ls \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp/.claude/skills/\" 2>&1)",
+      "Read(//c/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp/.claude/skills/**)",
+      "Bash(ls \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp/.claude/\" 2>&1)",
+      "Read(//c/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp/.claude/**)",
+      "Bash(ls \"C:/Users/Mohamed Sayed/.claude/skills/\" 2>&1)",
+      "Read(//c/Users/Mohamed Sayed/.claude/**)",
+      "Bash(mkdir -p \"C:/Users/Mohamed Sayed/.claude/skills\")",
+      "Bash(cp -r \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp/.claude/skills/\"* \"C:/Users/Mohamed Sayed/.claude/skills/\")",
+      "Bash(rm -rf \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp\" 2>&1)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Mohamed Sayed\\AppData\\Local\\Temp\\ui-ux-skill-temp"
     ]
   }
 }
