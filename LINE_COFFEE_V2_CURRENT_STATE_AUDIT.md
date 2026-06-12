@@ -12,13 +12,17 @@ Use it before any new agent starts work. It is not a visual brief and not a
 history document. It answers: what exists now, what is wired now, what is
 missing now, and where the project should continue from.
 
+It also contains a filtered product direction section built from the latest
+user notes. That section is a requirements map, not an implementation report.
+
 Any future AI agent should read in this order:
 
 1. `AGENTS.md`
 2. `LINE_COFFEE_V2_CURRENT_STATE_AUDIT.md`
-3. `package.json`
-4. `supabase/migrations/*`
-5. The specific file for the task being implemented
+3. `LINE_COFFEE_V2_BUILD_BLUEPRINT_FROM_OLD_UI.md`
+4. `package.json`
+5. `supabase/migrations/*`
+6. The specific file for the task being implemented
 
 Do not use deleted UI/UX files as source of truth. The visual implementation
 was intentionally removed so the project can stand cleanly before a fresh
@@ -645,7 +649,17 @@ Current source of truth for admin auth:
 - `lib/supabase/*`
 - admin auth migrations
 
-No current source of truth for UI/UX exists in the repo. That is intentional.
+No current source of truth for implemented UI/UX exists in the repo. That is
+intentional.
+
+Current source of truth for filtered product direction:
+
+- Section 19, "Filtered Product Direction From User Notes"
+- `LINE_COFFEE_V2_BUILD_BLUEPRINT_FROM_OLD_UI.md` for how to rebuild the
+  clean V2 project using the old UI as inspiration.
+
+That section describes what the product should become. It does not mean those
+features are currently implemented.
 
 ## 10. Known Mismatches And Risks
 
@@ -817,6 +831,8 @@ Result:
 - Production build passed.
 - TypeScript passed.
 - Static generation passed.
+- After adding Section 19 from the latest user notes, `npm run lint` and
+  `npm run build` were rerun and passed.
 - `npm uninstall framer-motion` reported 2 moderate npm audit findings; no
   forced audit fix was applied because it may introduce unrelated dependency
   changes.
@@ -867,6 +883,10 @@ Then check:
 Primary docs inspected:
 
 - `AGENTS.md`
+- attached user notes:
+  `C:/Users/Mohamed Sayed/.codex/attachments/704299fe-9f07-4131-8d95-b4346187e867/pasted-text.txt`
+- attached old UI review:
+  `C:/Users/Mohamed Sayed/.codex/attachments/b643cc3e-4dd7-4746-aa0c-40a0c69c8531/pasted-text.txt`
 - `LINE_COFFEE_V2_PROJECT_INDEX.md`
 - `LINE_COFFEE_V2_MASTER_SPECIFICATION.md`
 - `LINE_COFFEE_V2_MASTER_BLUEPRINT.md`
@@ -954,10 +974,12 @@ Deleted:
 Created:
 
 - `LINE_COFFEE_V2_CURRENT_STATE_AUDIT.md`
+- `LINE_COFFEE_V2_BUILD_BLUEPRINT_FROM_OLD_UI.md`
 
 Updated:
 
 - `README.md`
+- `LINE_COFFEE_V2_CURRENT_STATE_AUDIT.md`
 
 ## 17. SQL And Data Safety
 
@@ -990,3 +1012,1133 @@ Next.js 16 + Supabase foundation
 ```
 
 The project is now cleanly positioned before the drawing step.
+
+## 19. Filtered Product Direction From User Notes
+
+This section is the filtered, deduplicated version of the latest user-provided
+notes. It is implementation guidance for future AI agents.
+
+Important boundary:
+
+- This section describes the target product.
+- It does not describe current implementation.
+- Current implementation remains the clean skeleton documented above.
+- Do not resurrect deleted UI files or old visual references to satisfy this
+  section.
+
+### 19.1 Product Identity
+
+Line Coffee V2 should become:
+
+```text
+Premium bilingual coffee ecommerce platform
++ public customer website
++ admin dashboard
++ Supabase source of truth
++ custom coffee builders
++ guest checkout
++ WhatsApp and Telegram order flow
++ media-controlled content
++ blog, reviews, analytics and loyalty later
+```
+
+Core mental model:
+
+```text
+Admin Dashboard -> Supabase -> Customer Website
+Customer Website -> server checkout -> Supabase Orders
+Media Studio -> Supabase media/content mappings -> Website visuals
+```
+
+The dashboard must control real data. It must not be a decorative admin UI.
+
+### 19.2 Brand Direction
+
+The desired brand feel:
+
+- premium
+- cozy
+- dark luxury
+- warm
+- minimal
+- boutique coffee brand
+
+Avoid:
+
+- generic Shopify template feel
+- cheap cafe styling
+- soulless ecommerce layout
+- flashy or noisy visuals
+
+Approved brand base:
+
+- Dark Brown: `#522500`
+- Beige: `#FFDCC2`
+- Black: `#000000`
+- White: `#FFFFFF`
+
+Supporting visual language:
+
+- near-black backgrounds
+- dark coffee gradients
+- beige/gold accents
+- warm shadows
+- subtle glass panels only when useful
+
+Typography direction:
+
+- English: Playfair Display
+- Arabic: Cairo
+
+Note:
+
+- This is product direction only. These fonts/colors are not currently wired
+  into the cleaned codebase.
+
+### 19.3 Public Website Scope
+
+The customer-facing website should eventually include:
+
+- header
+- home page
+- products page
+- category page
+- product detail page
+- Make Your Espresso
+- Make Your Flavor
+- cart
+- checkout
+- order success
+- order tracking
+- optional account area
+- about
+- blog
+- blog post
+- contact
+- legal pages
+- footer
+
+Header target:
+
+- logo
+- home
+- products
+- Make Your Espresso
+- Make Your Flavor
+- blog
+- about
+- contact
+- cart
+- mobile menu
+- later: search
+
+Header data target:
+
+- categories from `categories`
+- cart count from cart state
+- logo/contact settings from `site_settings` and Media Studio
+
+Footer target:
+
+- brand summary
+- category links
+- company links
+- legal links
+- phone/WhatsApp/social links
+
+Footer data target:
+
+- `site_settings`
+- `categories`
+- social/contact settings
+
+Home page target sections:
+
+1. Hero
+2. Trust/features strip
+3. Categories
+4. Best sellers
+5. Customize your blend
+6. Our story
+7. Why Line Coffee
+8. Blog preview
+9. Testimonials/social proof
+10. Contact CTA
+
+Products page target:
+
+- small hero
+- category filters
+- search
+- sort
+- product grid
+- pagination or load more
+- filters by category, price, weight, availability, best seller and new
+
+Category page target:
+
+- category hero
+- category description
+- product grid
+- related categories
+
+Product detail target:
+
+- gallery
+- product name
+- category
+- description
+- taste/profile notes
+- weight selector
+- price
+- quantity selector
+- add to cart
+- WhatsApp quick ask
+- related products
+- reviews
+- storage and brewing notes
+
+### 19.4 Catalog Decisions
+
+Final public category/product direction:
+
+- Turkish Blends
+  - Turkish Silk
+  - Strike Coffee
+  - Cairo Nights
+  - High Mood
+- Espresso Blends
+  - Heavy Crema
+  - Aroma Body
+  - Headshot
+  - Black Label
+- Easy Coffee
+  - Classic Line
+  - Gold Line
+- Flavor Coffee
+  - French Coffee
+- Coffee Mix
+  - base plus flavors
+- Cappuccino
+  - base plus flavors
+- Hot Chocolate
+  - base plus flavors
+- Make Your Espresso
+  - custom builder
+- Make Your Flavor
+  - custom builder
+
+Important product rules:
+
+- French Coffee is a standalone product under Flavor Coffee.
+- French Coffee is not a Make Your Flavor base.
+- French Coffee is not a flavor inside the builder.
+- Do not use Nescafe wording.
+- Do not expose Single Origin as a public category.
+- Do not include Sahlab.
+
+Approved base prices from notes:
+
+| Category | Product | 250g | 500g | 1kg |
+| --- | --- | ---: | ---: | ---: |
+| Turkish Blends | Turkish Silk | 170 | 340 | 680 |
+| Turkish Blends | Strike Coffee | 225 | 445 | 890 |
+| Turkish Blends | Cairo Nights | 190 | 385 | 770 |
+| Turkish Blends | High Mood | 400 | 800 | 1600 |
+| Espresso Blends | Heavy Crema | 185 | 370 | 740 |
+| Espresso Blends | Aroma Body | 195 | 390 | 780 |
+| Espresso Blends | Headshot | 190 | 385 | 770 |
+| Espresso Blends | Black Label | 240 | 475 | 950 |
+| Easy Coffee | Classic Line | 145 | 290 | 580 |
+| Easy Coffee | Gold Line | 180 | 360 | 720 |
+| Flavor Coffee | French Coffee | 90 | 175 | 350 |
+
+Pricing rule:
+
+```text
+sale price = raw cost + packaging + profit margin
+then round to nearest 5 or 10 EGP
+```
+
+Implementation rule:
+
+- Prices must live in `product_variants` or future pricing tables.
+- Product cards/components must never hardcode prices.
+- Checkout must recalculate prices from Supabase.
+
+Flavor add-ons:
+
+- `+50 EGP` or `+70 EGP`
+- final add-on depends on flavor group/type
+- frontend may preview it
+- server must recalculate it
+
+### 19.5 Flavor System
+
+Flavor groups:
+
+- Original Line
+  - French/Original is Flavor Coffee only, not builder input.
+- Sweets
+  - chocolate chunks
+  - chocolate
+  - caramel
+  - vanilla
+  - lotus
+  - oreo
+  - cherry
+- Nuts
+  - hazelnut chunks
+  - hazelnut
+  - almond
+  - pistachio
+- Fruits
+  - strawberry
+  - banana
+  - apple
+  - pineapple
+  - guava
+  - mango
+  - orange
+  - kiwi
+- Special Order
+  - coconut
+  - mocha
+  - pina colada
+  - hookah apple
+  - hookah grape
+  - hot cider
+
+Flavor system applies to:
+
+- Flavor Coffee
+- Coffee Mix
+- Cappuccino
+- Hot Chocolate
+
+Not allowed or not preferred:
+
+- Sahlab
+- Raspberry Hot Chocolate
+- Cinnamon Roll
+- French Coffee inside builder
+- chocolate chunks inside Coffee Mix/Cappuccino/Hot Chocolate
+- hazelnut chunks inside Coffee Mix/Cappuccino/Hot Chocolate
+
+Preferred pairings:
+
+- caramel + cappuccino
+- vanilla + cappuccino
+- mocha + coffee mix
+- pistachio + Turkish coffee
+- lotus + hot chocolate
+- oreo + hot chocolate
+- hazelnut + Turkish coffee
+
+### 19.6 Packaging System
+
+Packaging should map visually to product type:
+
+- red matte pouch: custom orders, Make Your Espresso, Make Your Flavor
+- black matte pouch: Espresso Blends
+- copper matte pouch: Turkish Blends
+- kraft matte pouch: Flavor Coffee
+- short jar: Classic Line
+- tall jar: Gold Line
+- canisters: Coffee Mix, Cappuccino, Hot Chocolate
+
+Category visual identity:
+
+- Turkish = copper
+- Espresso = black
+- Flavor = kraft
+- Easy Coffee = jars
+- Customize = red/special/made for you
+
+Implementation rule:
+
+- Store this mapping in database/config later.
+- Do not bury it in UI-only component logic.
+
+### 19.7 Cart, Checkout And Orders
+
+Cart target:
+
+- works for guest and logged-in users
+- add item
+- choose variant/weight
+- change quantity
+- remove item
+- persist enough for guest session
+- display subtotal
+- support normal product items
+- support custom espresso items
+- support custom flavor items
+
+Cart is display-only for pricing. It can show an estimated price, but it is not
+the source of truth.
+
+Checkout target flow:
+
+```text
+Cart
+-> Checkout
+-> Customer Details
+-> Delivery Details
+-> Payment Method
+-> Review Order
+-> Place Order
+-> order saved in Supabase
+-> Telegram notification
+-> WhatsApp redirect
+-> Order Success
+```
+
+Guest checkout is default.
+
+Customer fields:
+
+- name
+- phone
+- WhatsApp number
+- email optional
+- address
+- area
+- city/governorate
+- location link optional
+- notes
+- payment method
+- delivery method
+
+Account login is optional and should only improve:
+
+- saved addresses
+- order history
+- tracking
+- loyalty later
+- reviews
+- faster checkout
+
+Initial payment options:
+
+- Cash on Delivery
+- Vodafone Cash/InstaPay later
+
+Server-side Place Order requirements:
+
+1. validate customer data
+2. validate cart items
+3. fetch current variant/custom pricing data
+4. recalculate subtotal
+5. calculate shipping
+6. validate discount if present
+7. create or update customer
+8. create address if needed
+9. create order
+10. create order items
+11. save custom blend snapshots
+12. send Telegram notification
+13. generate WhatsApp message
+14. return order success
+
+Critical rule:
+
+```text
+Database first, WhatsApp second.
+```
+
+If the customer opens WhatsApp and never sends the message, the order must
+still already exist in the dashboard and Telegram notification flow.
+
+Order statuses:
+
+- pending
+- confirmed
+- preparing
+- shipped / out for delivery
+- delivered
+- cancelled
+- returned
+
+Order success page target:
+
+- order confirmed message
+- order number
+- summary
+- WhatsApp button
+- expected contact message
+- continue shopping
+- track order
+
+Guest order tracking:
+
+- order number + phone
+- shows status, items, total and created date
+
+### 19.8 WhatsApp And Telegram Flow
+
+WhatsApp message should include:
+
+- order number
+- customer name
+- phone
+- WhatsApp
+- email if present
+- address
+- location link if present
+- products
+- variant/weight
+- quantity
+- unit price
+- line total
+- subtotal
+- shipping
+- discount
+- final total
+- notes
+
+Flow:
+
+```text
+Order saved -> WhatsApp opens -> customer presses Send
+```
+
+Telegram notification should include:
+
+- new order marker
+- order number
+- customer details
+- items
+- total
+- address
+- WhatsApp link
+- dashboard link
+
+Reason:
+
+- customer may not send WhatsApp
+- customer may close page
+- WhatsApp may fail to open
+- saved order must still be visible to admin
+
+### 19.9 Dashboard Target
+
+The dashboard is the control center. It must read/write real Supabase data by
+permission.
+
+Target modules:
+
+- Overview
+- Products
+- Categories
+- Orders
+- Customers
+- Media Studio
+- Reviews
+- Blog
+- Settings
+- Admins & Roles
+- Analytics
+- Audit Logs
+
+Overview:
+
+- today's orders
+- pending orders
+- revenue
+- best sellers
+- recent orders
+- top categories
+- low stock later
+- quick links
+
+Products Admin:
+
+- add/edit/archive product
+- hide/show product
+- change category
+- edit descriptions
+- set main image/gallery
+- manage variants
+- manage prices
+- manage stock later
+- set featured/best seller
+- set SEO
+
+Product fields:
+
+- `name_en`
+- `name_ar`
+- `slug`
+- `category_id`
+- short description
+- long description
+- active
+- visible
+- main image
+- gallery
+- sort order
+
+Variant fields:
+
+- weight
+- price
+- compare-at price
+- SKU
+- stock
+- active
+
+Categories Admin:
+
+- add/edit category
+- reorder
+- hide/show
+- image
+- homepage visibility
+- SEO
+
+Orders Admin:
+
+- list/filter orders
+- order detail
+- customer/phone/address
+- items/total/status/payment/date/notes
+- status update
+- WhatsApp link
+- internal note
+- print invoice later
+- cancel/refund later
+
+Customers:
+
+- customer name
+- phone
+- email
+- order count
+- total spent
+- addresses
+- last order
+
+Settings:
+
+- brand name
+- logo
+- phone
+- WhatsApp phone
+- email
+- address
+- social links
+- SEO defaults
+- footer text
+- support text
+- free shipping threshold if used
+
+Admins and roles:
+
+- `primary_owner`
+- `owner`
+- `admin`
+- `staff`
+
+Permissions:
+
+- `products.read`
+- `products.write`
+- `orders.read`
+- `orders.write`
+- `media.read`
+- `media.write`
+- `settings.write`
+- `admins.manage`
+- `blog.write`
+- `reviews.moderate`
+
+Audit logs:
+
+- every important admin change must be recorded
+- example: product price changed from old value to new value
+- example: review approved
+- example: order status changed
+
+### 19.10 Media Studio Target
+
+Media Studio is not just an upload page. It should be the visual control center
+for public content.
+
+It should control:
+
+- Home Hero
+- Products Page banner
+- category images
+- product images
+- About page hero/story image
+- Contact page hero
+- Blog covers
+- promotional banners
+- social blocks
+
+Every media asset should eventually have:
+
+- file
+- alt text
+- folder
+- tags
+- usage
+- public/private flag
+- created metadata
+- mapping to page/section/entity
+
+Target tables beyond current foundation:
+
+- `media_folders`
+- `media_tags`
+- `media_usages`
+- `media_revisions`
+
+Rule:
+
+- Important public images should come from Media Studio mappings.
+- Avoid fake dashboard previews that drift from live website rendering.
+
+### 19.11 Custom Builders
+
+Make Your Espresso target:
+
+- an "Espresso Intelligence Engine", not a random bean picker
+- customer chooses a goal
+- system suggests preset/ratio
+- customer can adjust beans and ratios
+- live profile bars update
+- system gives smart suggestions
+- price preview updates
+- final checkout recalculates server-side
+
+Espresso inputs:
+
+- bean
+- origin
+- family: Arabica or Robusta
+- body
+- acidity
+- crema
+- strength
+- aroma
+- cost
+- stock
+- recommended usage
+
+Possible goals:
+
+- More Crema
+- Balanced Espresso
+- Strong Morning Shot
+- Smooth Arabica Taste
+- Low Acidity
+- Milk-based Drinks
+- Premium Cafe Blend
+
+Live profile bars:
+
+- strength
+- body
+- crema
+- acidity
+- aroma
+- smoothness
+
+Espresso preset ideas:
+
+- Crema King
+- Smooth Cafe
+- Morning Shot
+- Arabica Premium
+- Low Acidity Espresso
+- Milk Lover
+- Black Label Style
+- Bold Robusta
+- Fruity Espresso
+- Balanced House Blend
+
+Custom espresso cart snapshot:
+
+- `custom_type: espresso`
+- blend name
+- beans
+- ratios
+- profile bars
+- weight
+- price snapshot
+- notes
+
+Make Your Flavor target:
+
+- customer chooses base
+- customer chooses flavor group
+- customer chooses one or more flavors
+- system validates pairings
+- system gives recommended/not recommended guidance
+- price preview updates
+- final checkout recalculates server-side
+
+Flavor bases:
+
+- Turkish Coffee
+- Coffee Mix
+- Cappuccino
+- Hot Chocolate
+
+Flavor builder rules:
+
+- French Coffee is not a base.
+- French Coffee is not a builder flavor.
+- 1 to 3 flavors maximum unless future rules say otherwise.
+- some pairings should warn or be blocked.
+
+Custom flavor cart snapshot:
+
+- `custom_type: flavor`
+- base
+- flavors
+- weight
+- intensity if used
+- pairing notes
+- price snapshot
+
+Required future builder tables:
+
+- `espresso_beans`
+- `espresso_bean_profiles`
+- `espresso_blend_presets`
+- `espresso_blend_rules`
+- `custom_espresso_orders`
+- `flavor_bases`
+- `flavors`
+- `flavor_groups`
+- `flavor_pairing_rules`
+- `custom_flavor_orders`
+
+### 19.12 Content, Blog, Reviews, Account And Legal
+
+About page:
+
+- storytelling, not generic copy
+- family coffee experience
+- premium but not pretentious
+- craft, blends, raw material choice, balance and flavors
+- CTA to shop or make a blend
+
+Blog:
+
+- supports SEO and trust
+- blog list and post detail
+- featured post
+- categories/tags
+- cover image
+- SEO title and description
+- published/draft state
+
+Blog topic examples:
+
+- Arabica vs Robusta
+- choosing Turkish coffee
+- crema in espresso
+- coffee storage
+- Classic Line vs Gold Line
+- French coffee flavors
+- Coffee Mix vs Cappuccino
+- coffee gifts
+- choosing a blend by mood
+
+Reviews:
+
+- customer submits review
+- review starts pending
+- admin approves/rejects/features
+- website only shows approved reviews
+
+Account:
+
+- optional
+- profile
+- saved addresses
+- my orders
+- wishlist later
+- loyalty points later
+- reviews
+
+Legal:
+
+- Privacy Policy
+- Terms and Conditions
+- Return/Refund Policy if needed
+- Shipping Policy if needed
+
+### 19.13 Data Relationships
+
+Catalog flow:
+
+```text
+categories
+-> products
+-> product_variants
+-> cart items
+-> order_items
+-> orders
+```
+
+Media flow:
+
+```text
+media_assets
+-> products
+-> categories
+-> pages
+-> blog
+-> hero sections
+```
+
+Settings flow:
+
+```text
+site_settings
+-> header
+-> footer
+-> contact
+-> WhatsApp
+-> SEO
+```
+
+Builder flow:
+
+```text
+beans/flavor bases/flavors/rules
+-> custom builder
+-> custom cart item
+-> custom order item snapshot
+```
+
+### 19.14 Required Tables Roadmap
+
+Already present in foundation migrations:
+
+- `categories`
+- `products`
+- `product_variants`
+- `media_assets`
+- `site_settings`
+- `customers`
+- `customer_addresses`
+- `orders`
+- `order_items`
+- `audit_logs`
+- `admin_users`
+- `admin_roles`
+- `admin_permissions`
+- `admin_role_permissions`
+- `website_pages`
+- `page_sections`
+- `page_section_items`
+
+Needed for fuller V1:
+
+- `product_media`
+- `product_profile_attributes`
+- `product_related`
+- `media_folders`
+- `media_tags`
+- `media_usages`
+- `media_revisions`
+- custom espresso tables
+- custom flavor tables
+- `reviews`
+- `blog_posts`
+- `blog_categories`
+- `blog_tags`
+- `contact_messages`
+- `order_status_history`
+- shipping/payment/discount tables as needed
+
+Later operations:
+
+- inventory
+- suppliers
+- purchase batches
+- shipping zones
+- payments
+- discounts
+- loyalty points
+- notifications
+- analytics events
+
+### 19.15 Recommended Build Order From Notes
+
+Do not build everything at once.
+
+Filtered order:
+
+1. Brand Shell
+   - tokens
+   - fonts
+   - layout
+   - header
+   - footer
+   - mobile menu
+   - basic responsive structure
+2. Home Page
+   - hero
+   - features
+   - categories
+   - best sellers
+   - custom section
+   - story
+   - CTA
+3. Products
+   - products page
+   - category page
+   - product cards
+   - product detail
+4. Cart
+   - cart drawer/page
+   - guest cart
+   - variant selection
+   - custom item support
+5. Checkout
+   - guest checkout
+   - server validation
+   - order creation
+   - WhatsApp redirect
+   - Telegram notification
+   - success page
+6. Orders Dashboard
+   - orders list
+   - order detail
+   - status update
+   - WhatsApp link
+7. Products Dashboard
+   - product CRUD
+   - category CRUD
+   - variant CRUD
+   - image assignment
+8. Media Studio
+   - upload
+   - folders
+   - usage mapping
+   - page banners
+   - product images
+9. Builders
+   - Make Your Espresso
+   - Make Your Flavor
+   - smart rules
+   - price calculation
+   - custom checkout snapshots
+10. Blog, Reviews and SEO
+    - blog
+    - reviews
+    - metadata
+    - sitemap
+    - structured data
+11. Analytics and Loyalty
+    - events
+    - dashboard metrics
+    - loyalty
+    - retention
+12. Final Launch
+    - mobile QA
+    - speed
+    - image optimization
+    - real content
+    - real products
+    - test orders
+    - security
+    - backup
+    - launch checklist
+
+Practical note:
+
+- Builders may be prototyped before checkout if the goal is UI exploration.
+- Production launch requires checkout to support builders before they are sold.
+
+### 19.16 Customer Scenarios
+
+Scenario 1 - normal Turkish Silk order:
+
+```text
+Home
+-> Hero
+-> Categories
+-> Turkish Blends
+-> Turkish Silk
+-> Product Detail
+-> choose 250g
+-> Add to Cart
+-> Cart
+-> Checkout as Guest
+-> Place Order
+-> server recalculates price
+-> order saved
+-> Telegram notification
+-> WhatsApp opens
+-> customer sends message
+-> Order Success
+```
+
+Scenario 2 - Make Your Espresso:
+
+```text
+Make Your Espresso
+-> choose goal: More Crema
+-> system suggests preset
+-> customer edits Brazil/Vietnam/Colombia ratios
+-> live bars update
+-> system gives suggestion
+-> choose 500g
+-> preview price
+-> Add Custom Blend
+-> checkout
+-> order saved with custom blend snapshot
+-> dashboard shows ratios and profile
+```
+
+Scenario 3 - Make Your Flavor:
+
+```text
+Make Your Flavor
+-> choose base: Cappuccino
+-> choose group: Sweets
+-> choose Caramel + Vanilla
+-> system validates pairing
+-> preview price
+-> add to cart
+-> checkout
+-> dashboard shows base/flavors/weight snapshot
+```
+
+Scenario 4 - logged-in customer:
+
+```text
+Login
+-> cart can be saved
+-> address can be reused
+-> faster checkout
+-> order appears in My Orders
+-> review after delivery
+-> loyalty later
+```
+
+### 19.17 Non-Negotiable Implementation Rules
+
+- Supabase is the source of truth.
+- No hardcoded products.
+- No hardcoded prices.
+- No checkout that trusts client totals.
+- No service role in client code.
+- Every important admin mutation must write an audit log.
+- Every public media item needs alt text.
+- Important page/product images should come from Media Studio.
+- Every product must have variants.
+- Every order must have immutable item snapshots.
+- Guest checkout must work.
+- Login is optional.
+- Arabic copy must be natural, not literal machine translation.
+- Mobile is priority.
+- Dashboard must control the website in real data, not only UI state.

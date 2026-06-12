@@ -19,7 +19,8 @@
       "Read(//c/Users/Mohamed Sayed/.claude/**)",
       "Bash(mkdir -p \"C:/Users/Mohamed Sayed/.claude/skills\")",
       "Bash(cp -r \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp/.claude/skills/\"* \"C:/Users/Mohamed Sayed/.claude/skills/\")",
-      "Bash(rm -rf \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp\" 2>&1)"
+      "Bash(rm -rf \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp\" 2>&1)",
+      "WebSearch"
     ],
     "additionalDirectories": [
       "C:\\Users\\Mohamed Sayed\\AppData\\Local\\Temp\\ui-ux-skill-temp"
