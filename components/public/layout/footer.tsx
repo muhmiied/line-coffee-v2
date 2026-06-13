@@ -3,17 +3,17 @@ import { getPublicCategories } from '@/lib/db/categories'
 import type { PublicCategory } from '@/lib/db/types'
 
 const EXPLORE_LINKS = [
-  { href: '#',         label: 'اصنع إسبريسوك' },
-  { href: '#',         label: 'اصنع نكهتك'    },
-  { href: '#',         label: 'من نحن'         },
-  { href: '#',         label: 'المدونة'        },
-  { href: '#',         label: 'تواصل معنا'     },
+  { href: '/products/category/make-your-espresso', label: 'اصنع إسبريسوك' },
+  { href: '/products/category/make-your-flavor',   label: 'اصنع نكهتك'    },
+  { href: '/about',                                 label: 'من نحن'         },
+  { href: '/blog',                                  label: 'المدونة'        },
+  { href: '/contact',                               label: 'تواصل معنا'     },
 ]
 
 const LEGAL_LINKS = [
-  { href: '#', label: 'سياسة الخصوصية' },
-  { href: '#', label: 'الشروط والأحكام' },
-  { href: '#', label: 'سياسة الإرجاع'   },
+  { href: '/privacy-policy', label: 'سياسة الخصوصية' },
+  { href: '/terms-of-use',   label: 'الشروط والأحكام' },
+  { href: '/return-policy',  label: 'سياسة الإرجاع'   },
 ]
 
 const CATEGORY_FALLBACK = [
@@ -22,7 +22,6 @@ const CATEGORY_FALLBACK = [
   'قهوة سهلة',
   'قهوة بالنكهات',
   'كابتشينو',
-  'شوكولاتة ساخنة',
 ]
 
 export async function Footer() {
@@ -56,13 +55,13 @@ export async function Footer() {
               خلطات قهوة فاخرة مصنوعة بعناية، لأجل اللحظة المثالية في كل كوب.
             </p>
             <div className="flex items-center gap-2.5">
-              <SocialLink href="https://wa.me/201000000000" label="واتساب">
+              <SocialLink href="https://wa.me/201004761171" label="واتساب">
                 <WhatsAppIcon />
               </SocialLink>
-              <SocialLink href="#" label="إنستغرام">
+              <SocialLink href="https://instagram.com/linecoffee.eg" label="إنستغرام">
                 <InstagramIcon />
               </SocialLink>
-              <SocialLink href="#" label="فيسبوك">
+              <SocialLink href="https://facebook.com/linecoffee" label="فيسبوك">
                 <FacebookIcon />
               </SocialLink>
             </div>
@@ -122,10 +121,10 @@ export async function Footer() {
                 <div>
                   <p className="text-lc-cream-dim text-xs mb-1">واتساب وأوردر</p>
                   <a
-                    href="https://wa.me/201000000000"
+                    href="https://wa.me/201004761171"
                     className="text-lc-cream text-sm hover:text-lc-gold transition-colors duration-200"
                   >
-                    010 0000 0000
+                    0100 476 1171
                   </a>
                 </div>
               </li>
@@ -133,7 +132,7 @@ export async function Footer() {
                 <ClockIcon className="w-4 h-4 text-lc-gold mt-0.5 shrink-0" />
                 <div>
                   <p className="text-lc-cream-dim text-xs mb-1">ساعات العمل</p>
-                  <p className="text-lc-cream text-sm">السبت – الخميس، 9ص – 9م</p>
+                  <p className="text-lc-cream text-sm">الأحد – الخميس، 9ص – 6م</p>
                 </div>
               </li>
             </ul>
@@ -164,7 +163,7 @@ export async function Footer() {
   )
 }
 
-/* ── Small Primitives ── */
+/* ── Primitives ── */
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -174,15 +173,7 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
   )
 }
 
-function SocialLink({
-  href,
-  label,
-  children,
-}: {
-  href: string
-  label: string
-  children: React.ReactNode
-}) {
+function SocialLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
@@ -195,8 +186,6 @@ function SocialLink({
     </a>
   )
 }
-
-/* ── Inline SVG Icons ── */
 
 function WhatsAppIcon() {
   return (

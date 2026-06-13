@@ -1,5 +1,6 @@
 'use client'
 
+import { Coffee, Sparkles } from 'lucide-react'
 import { FadeUp, StaggerGroup, StaggerItem } from '@/components/ui/motion-primitives'
 
 const BUILDERS = [
@@ -10,7 +11,7 @@ const BUILDERS = [
     accent: '#C8853A',
     bg: 'linear-gradient(145deg, #3a0a00, #5c1800, #1a0800)',
     badge: 'Custom Espresso',
-    emoji: '☕',
+    Icon: Coffee,
   },
   {
     key: 'flavor',
@@ -19,7 +20,7 @@ const BUILDERS = [
     accent: '#D4A017',
     bg: 'linear-gradient(145deg, #2d1400, #4a2000, #1a0c00)',
     badge: 'Flavor Builder',
-    emoji: '✨',
+    Icon: Sparkles,
   },
 ]
 
@@ -104,7 +105,12 @@ export function MakeYourProductSection() {
 
                 {/* Card content */}
                 <div className="relative z-10">
-                  <div className="text-4xl mb-5" aria-hidden="true">{b.emoji}</div>
+                  <b.Icon
+                    className="w-8 h-8 mb-5"
+                    style={{ color: b.accent }}
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                  />
                   <div
                     className="inline-block text-[10px] tracking-widest uppercase px-3 py-1 rounded-full mb-4 border"
                     style={{
@@ -115,14 +121,10 @@ export function MakeYourProductSection() {
                   >
                     {b.badge}
                   </div>
-                  <h3
-                    className="font-display text-2xl font-bold text-lc-cream mb-3"
-                  >
+                  <h3 className="font-display text-2xl font-bold text-lc-cream mb-3">
                     {b.title}
                   </h3>
-                  <p className="text-lc-cream-muted text-sm leading-relaxed">
-                    {b.desc}
-                  </p>
+                  <p className="text-lc-cream-muted text-sm leading-relaxed">{b.desc}</p>
                 </div>
               </div>
             </StaggerItem>

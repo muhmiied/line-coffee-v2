@@ -20,7 +20,10 @@
       "Bash(mkdir -p \"C:/Users/Mohamed Sayed/.claude/skills\")",
       "Bash(cp -r \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp/.claude/skills/\"* \"C:/Users/Mohamed Sayed/.claude/skills/\")",
       "Bash(rm -rf \"C:/Users/Mohamed Sayed/AppData/Local/Temp/ui-ux-skill-temp\" 2>&1)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(python scripts/search.py \"premium luxury coffee ecommerce dark cinematic arabic rtl\" --design-system -p \"Line Coffee V2\" -f markdown)",
+      "Bash(dir \"C:\\\\Users\\\\Mohamed Sayed\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\")",
+      "Bash(dir \"C:\\\\Users\\\\Mohamed Sayed\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\data\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\Mohamed Sayed\\AppData\\Local\\Temp\\ui-ux-skill-temp"

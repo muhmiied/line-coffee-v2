@@ -110,19 +110,33 @@ export function StorySection() {
                       'radial-gradient(ellipse 70% 70% at 50% 50%, rgba(182,136,94,0.12) 0%, transparent 65%)',
                   }}
                 />
-                {/* Decorative center */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center select-none">
-                    <div
-                      className="font-display text-[80px] leading-none font-bold"
-                      style={{ color: '#d6a373', opacity: 0.05 }}
-                      aria-hidden="true"
+                {/* Decorative center watermark */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+                  aria-hidden="true"
+                >
+                  <div className="text-center">
+                    {/* Coffee cup SVG watermark */}
+                    <svg
+                      viewBox="0 0 88 98"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-28 h-auto mx-auto"
+                      style={{ color: '#d6a373', opacity: 0.06 }}
                     >
-                      ☕
-                    </div>
+                      <line x1="11" y1="9" x2="11" y2="73" stroke="currentColor" strokeWidth="6.5" strokeLinecap="round"/>
+                      <line x1="11" y1="73" x2="62" y2="73" stroke="currentColor" strokeWidth="6.5" strokeLinecap="round"/>
+                      <circle cx="48" cy="33" r="22" stroke="currentColor" strokeWidth="4"/>
+                      <ellipse cx="48" cy="33" rx="12" ry="15" stroke="currentColor" strokeWidth="2.5"/>
+                      <line x1="48" y1="18" x2="48" y2="48" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      <path d="M 70 21 Q 83 21 83 33 Q 83 45 70 45" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round"/>
+                      <ellipse cx="48" cy="57" rx="14" ry="2.5" stroke="currentColor" strokeWidth="2.5"/>
+                      <circle cx="78" cy="63" r="3" fill="currentColor"/>
+                      <circle cx="78" cy="72" r="2" fill="currentColor"/>
+                    </svg>
                     <p
-                      className="font-display text-xl italic font-medium mt-4"
-                      style={{ color: '#f5e6d8', opacity: 0.12 }}
+                      className="font-display text-xl italic font-medium mt-3"
+                      style={{ color: '#f5e6d8', opacity: 0.1 }}
                     >
                       Line Coffee
                     </p>

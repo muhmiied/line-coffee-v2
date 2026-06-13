@@ -8,7 +8,7 @@ const CONTACT_INFO = [
     Icon: Phone,
     title: 'واتساب وأوردر',
     value: '010 0000 0000',
-    href: 'https://wa.me/201000000000',
+    href: 'https://wa.me/201004761171',
   },
   {
     Icon: MapPin,
@@ -98,7 +98,7 @@ export function ContactCTASection() {
         {/* WhatsApp CTA */}
         <FadeUp className="text-center" delay={0.25}>
           <a
-            href="https://wa.me/201000000000"
+            href="https://wa.me/201004761171"
             target="_blank"
             rel="noopener noreferrer"
             className="premium-button inline-flex items-center gap-3 px-10 py-4 rounded-full text-base font-semibold"

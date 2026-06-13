@@ -2,20 +2,34 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { ShoppingBag } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Search, Heart, ShoppingBag, User, Menu, X, Package } from 'lucide-react'
 import { MobileMenu } from './mobile-menu'
+import { LineCoffeeLogo } from './logo'
 import type { NavLink } from './header'
 
-type HeaderClientProps = {
-  links: NavLink[]
-}
+const BAR_KEY = 'lc-bar-v1'
+const E = [0.22, 1, 0.36, 1] as const
 
-export function HeaderClient({ links }: HeaderClientProps) {
-  const [scrolled, setScrolled]   = useState(false)
-  const [menuOpen, setMenuOpen]   = useState(false)
+export function HeaderClient({ links }: { links: NavLink[] }) {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [barVisible, setBarVisible] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const id = setTimeout(() => {
+      if (!sessionStorage.getItem(BAR_KEY)) setBarVisible(true)
+    }, 0)
+    return () => clearTimeout(id)
+  }, [])
+
+  function dismissBar() {
+    sessionStorage.setItem(BAR_KEY, '1')
+    setBarVisible(false)
+  }
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -28,89 +42,103 @@ export function HeaderClient({ links }: HeaderClientProps) {
 
   return (
     <>
-      <header
-        className={[
-          'fixed top-0 inset-x-0 z-50 h-16 flex items-center transition-all duration-300 ease-in-out',
-          scrolled
-            ? 'bg-lc-bg/95 backdrop-blur-md border-b border-lc-border/60 shadow-[0_1px_24px_rgba(0,0,0,0.6)]'
-            : 'bg-transparent',
-        ].join(' ')}
-      >
-        <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="fixed top-0 inset-x-0 z-50">
 
-          {/* ── Logo ── */}
-          <Link
-            href="/"
-            className="flex flex-col leading-none group"
-            aria-label="Line Coffee — الصفحة الرئيسية"
-          >
-            <span className="font-display text-lc-cream text-[10px] tracking-[0.3em] uppercase transition-colors duration-200 group-hover:text-lc-gold-light">
-              Line
-            </span>
-            <span className="font-display text-lc-gold text-lg tracking-[0.18em] uppercase font-semibold transition-colors duration-200 group-hover:text-lc-gold-light">
-              Coffee
-            </span>
-          </Link>
-
-          {/* ── Desktop Nav ── */}
-          <nav
-            className="hidden lg:flex items-center gap-7"
-            aria-label="التنقل الرئيسي"
-          >
-            {links.map((link) =>
-              link.disabled ? (
-                <span
-                  key={link.label}
-                  className="text-lc-cream-dim text-sm font-arabic cursor-not-allowed select-none"
-                  aria-disabled="true"
-                >
-                  {link.label}
-                </span>
-              ) : (
-                <Link
-                  key={link.href + link.label}
-                  href={link.href}
-                  className="relative text-lc-cream-muted text-sm font-arabic transition-colors duration-200 hover:text-lc-cream group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-0.5 start-0 h-px w-0 bg-lc-gold transition-all duration-300 group-hover:w-full" />
-                </Link>
-              )
-            )}
-          </nav>
-
-          {/* ── Actions ── */}
-          <div className="flex items-center gap-3">
-            {/* Cart */}
-            <Link
-              href="/cart"
-              className="relative flex items-center justify-center w-10 h-10 rounded-full text-lc-cream-muted transition-all duration-200 hover:text-lc-cream hover:bg-lc-surface"
-              aria-label="سلة التسوق"
+        {/* ── Announcement Bar ── */}
+        <AnimatePresence>
+          {barVisible && (
+            <motion.div
+              key="bar"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.38, ease: E }}
+              className="overflow-hidden"
             >
-              <ShoppingBag className="w-5 h-5" />
-              <span
-                className="absolute top-1.5 end-1.5 w-[18px] h-[18px] rounded-full bg-lc-gold text-lc-bg text-[10px] font-bold flex items-center justify-center leading-none"
-                aria-hidden="true"
+              <div className="lc-announcement-bar">
+                <div className="relative flex items-center justify-center py-2.5 px-12">
+                  <div className="flex items-center gap-2.5">
+                    <Package className="w-3 h-3 shrink-0 text-lc-gold-light" strokeWidth={2} aria-hidden="true" />
+                    <p className="lc-announcement-text">
+                      توصيل مجاني على الطلبات فوق{' '}
+                      <Link href="/products" className="text-lc-gold-light font-semibold hover:underline underline-offset-2">
+                        200 ج
+                      </Link>
+                      {' '}— اطلب الآن وتوصيلك في اليوم التالي
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={dismissBar}
+                    className="absolute top-1/2 -translate-y-1/2 end-4 text-lc-cream-dim hover:text-lc-cream transition-colors duration-200 opacity-60 hover:opacity-100"
+                    aria-label="إغلاق الإشعار"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Main Header ── */}
+        <header className={`lc-header ${scrolled ? 'lc-header--scrolled' : ''}`}>
+          {/* Mobile: 2-col | Desktop: [1fr auto 1fr] → Logo | Nav centered | Icons */}
+          <div className="w-full max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] items-center">
+
+            {/* Col 1 — Logo (rightmost in RTL) */}
+            <div className="flex justify-start">
+              <Link
+                href="/"
+                aria-label="Line Coffee"
+                className="text-white hover:opacity-85 transition-opacity duration-200"
               >
-                0
-              </span>
-            </Link>
+                <LineCoffeeLogo />
+              </Link>
+            </div>
 
-            {/* Hamburger */}
-            <button
-              className="lg:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 group"
-              onClick={() => setMenuOpen(true)}
-              aria-label="فتح القائمة"
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-            >
-              <span className="h-px w-5 bg-lc-cream-muted transition-colors duration-200 group-hover:bg-lc-gold" />
-              <span className="h-px w-3.5 bg-lc-cream-muted transition-colors duration-200 group-hover:bg-lc-gold" />
-              <span className="h-px w-4 bg-lc-cream-muted transition-colors duration-200 group-hover:bg-lc-gold" />
-            </button>
+            {/* Col 2 — Nav (centered, hidden on mobile → removed from grid flow) */}
+            <nav className="hidden lg:flex items-center gap-7" aria-label="Main Navigation">
+              {links.map((link) => (
+                <Link key={link.href + link.label} href={link.href} className="lc-nav-link">
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Col 3 (or Col 2 on mobile) — Icons (leftmost in RTL) */}
+            <div className="flex justify-end items-center gap-0.5">
+              <Link href="/search" aria-label="Search" className="lc-header-icon hidden sm:flex">
+                <Search className="w-4.5 h-4.5" strokeWidth={1.5} />
+              </Link>
+
+              <Link href="/wishlist" aria-label="Wishlist" className="lc-header-icon hidden sm:flex">
+                <Heart className="w-4.5 h-4.5" strokeWidth={1.5} />
+              </Link>
+
+              <Link href="/cart" aria-label="سلة التسوق" className="lc-header-icon relative">
+                <ShoppingBag className="w-4.5 h-4.5" strokeWidth={1.5} />
+                <span className="lc-cart-badge" aria-hidden="true">0</span>
+              </Link>
+
+              <Link href="/account" aria-label="Account" className="lc-header-icon hidden sm:flex">
+                <User className="w-4.5 h-4.5" strokeWidth={1.5} />
+              </Link>
+
+              {/* Mobile hamburger */}
+              <button
+                type="button"
+                className="lc-header-icon lg:hidden"
+                onClick={() => setMenuOpen(true)}
+                aria-label="فتح القائمة"
+                aria-haspopup="dialog"
+              >
+                <Menu className="w-5 h-5" strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
       <MobileMenu
         id="mobile-menu"

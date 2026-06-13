@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { X, ShoppingBag } from 'lucide-react'
+import { LineCoffeeLogo } from './logo'
 import type { NavLink } from './header'
 
 type MobileMenuProps = {
@@ -29,7 +30,7 @@ export function MobileMenu({ id, links, isOpen, onClose }: MobileMenuProps) {
             aria-hidden="true"
           />
 
-          {/* Panel — slides in from the start side (right in RTL) */}
+          {/* Panel — slides in from start side (right in RTL) */}
           <motion.div
             key="panel"
             id={id}
@@ -43,17 +44,12 @@ export function MobileMenu({ id, links, isOpen, onClose }: MobileMenuProps) {
             aria-label="القائمة الرئيسية"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-lc-border">
-              <Link href="/" onClick={onClose} className="flex flex-col leading-none group">
-                <span className="font-display text-lc-cream text-[10px] tracking-[0.3em] uppercase group-hover:text-lc-gold-light transition-colors duration-200">
-                  Line
-                </span>
-                <span className="font-display text-lc-gold text-lg tracking-[0.18em] uppercase font-semibold">
-                  Coffee
-                </span>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-lc-border">
+              <Link href="/" onClick={onClose} className="text-white hover:opacity-80 transition-opacity">
+                <LineCoffeeLogo />
               </Link>
-
               <button
+                type="button"
                 onClick={onClose}
                 className="w-9 h-9 flex items-center justify-center rounded-full text-lc-cream-muted hover:text-lc-cream hover:bg-lc-surface-soft transition-all duration-200"
                 aria-label="إغلاق القائمة"
@@ -72,22 +68,13 @@ export function MobileMenu({ id, links, isOpen, onClose }: MobileMenuProps) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.06 + i * 0.04, duration: 0.22 }}
                   >
-                    {link.disabled ? (
-                      <div className="flex items-center justify-between px-4 py-3 rounded-lg text-lc-cream-dim">
-                        <span className="text-sm font-arabic">{link.label}</span>
-                        <span className="text-[10px] text-lc-gold-dim border border-lc-border/60 rounded px-1.5 py-0.5 leading-none">
-                          قريباً
-                        </span>
-                      </div>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        onClick={onClose}
-                        className="flex items-center px-4 py-3 rounded-lg text-lc-cream-muted text-sm font-arabic hover:text-lc-cream hover:bg-lc-surface-soft transition-all duration-200"
-                      >
-                        {link.label}
-                      </Link>
-                    )}
+                    <Link
+                      href={link.href}
+                      onClick={onClose}
+                      className="flex items-center px-4 py-3 rounded-lg text-lc-cream-muted text-sm hover:text-lc-cream hover:bg-lc-surface-soft transition-all duration-200"
+                    >
+                      {link.label}
+                    </Link>
                   </motion.li>
                 ))}
               </ul>

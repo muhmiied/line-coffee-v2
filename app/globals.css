@@ -236,6 +236,92 @@ section[id] {
   -webkit-text-fill-color: transparent;
 }
 
+/* ─── Header ─── */
+
+.lc-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  transition:
+    background      400ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow      400ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color    400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lc-header--scrolled {
+  background: rgba(11, 8, 6, 0.9);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  backdrop-filter: blur(22px) saturate(1.4);
+  border-bottom: 1px solid rgba(182, 136, 94, 0.15);
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.55);
+}
+
+.lc-announcement-bar {
+  background: rgba(7, 5, 4, 0.94);
+  border-bottom: 1px solid rgba(182, 136, 94, 0.12);
+}
+.lc-announcement-text {
+  color: #c8a882;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.lc-nav-link {
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: rgba(245, 230, 216, 0.72);
+  transition: color 220ms ease;
+}
+.lc-nav-link:hover {
+  color: #ffffff;
+}
+.lc-nav-link::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: #b6885e;
+  transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lc-nav-link:hover::after {
+  width: 100%;
+}
+
+.lc-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  color: rgba(245, 230, 216, 0.72);
+  transition: background 200ms ease, color 200ms ease;
+}
+.lc-header-icon:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(245, 230, 216, 0.95);
+}
+
+.lc-cart-badge {
+  position: absolute;
+  top: 6px;
+  inset-inline-end: 6px;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: #b6885e;
+  color: #0b0806;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,
